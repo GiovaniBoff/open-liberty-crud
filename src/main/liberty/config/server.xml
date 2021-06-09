@@ -29,8 +29,8 @@
     <dataSource jndiName="jdbc/myDB">
         <jdbcDriver libraryRef="jdbcLib"/>
         <properties serverName="localhost" portNumber="3307"
-                    databaseName="myDb"
-                    user="exampleUser"
-                    password="examplePassword"/>
+                    databaseName="myDB"
+                    user="root"
+                    password="root"/>
     </dataSource>
 </server>
