@@ -1,5 +1,4 @@
-package com.crud.train.crud.client;
-
+package com.crud.train.crud.Controllers;
 
 import javax.enterprise.context.RequestScoped;
 import javax.inject.Inject;
@@ -19,12 +18,12 @@ public class TrainControllerV1 {
 
   @Inject
   private TrainDAO trainDao;
-  
+
   @POST
   @Consumes(MediaType.APPLICATION_JSON)
   @Produces(MediaType.APPLICATION_JSON)
   @Transactional
-  public Train createTrain(Train train) {    
+  public Train createTrain(Train train) {
     return trainDao.create(train);
   }
 }

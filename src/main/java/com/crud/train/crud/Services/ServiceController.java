@@ -1,4 +1,4 @@
-package com.crud.train.crud.client;
+package com.crud.train.crud.Service;
 
 import javax.ws.rs.GET;
 import javax.ws.rs.Path;
