@@ -1,4 +1,4 @@
-package com.crud.train.crud;
+package com.crud.movies.crud;
 
 import org.eclipse.microprofile.auth.LoginConfig;
 
@@ -13,5 +13,5 @@ import javax.ws.rs.core.Application;
 @LoginConfig(authMethod = "MP-JWT", realmName = "jwt-jaspi")
 // @DeclareRoles({"protected"})
 
-public class TraincrudRestApplication extends Application {
+public class CrudRestApplication extends Application {
 }

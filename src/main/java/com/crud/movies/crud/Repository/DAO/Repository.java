@@ -1,4 +1,4 @@
-package com.crud.train.crud.Repository.DAO;
+package com.crud.movies.crud.Repository.DAO;
 
 /**
  * @License
@@ -28,8 +28,6 @@ import javax.persistence.PersistenceContext;
 import javax.persistence.criteria.CriteriaBuilder;
 import javax.persistence.criteria.CriteriaQuery;
 import javax.persistence.criteria.Root;
-
-
 
 public abstract class Repository<T> {
 
@@ -87,46 +85,41 @@ public abstract class Repository<T> {
         final CriteriaQuery<T> criteria = builder.createQuery(this.genericClass());
         Root<T> root = criteria.from(this.genericClass());
         criteria.select(root).where((builder.equal(root.get(column1), value1)),
-                                   (builder.equal(root.get(column2), value2)));
+                (builder.equal(root.get(column2), value2)));
         return em.createQuery(criteria).getSingleResult();
     }
-
 
     public T findUser(String value1, String value2) {
         final CriteriaBuilder builder = em.getCriteriaBuilder();
         final CriteriaQuery<T> criteria = builder.createQuery(this.genericClass());
         Root<T> root = criteria.from(this.genericClass());
         criteria.select(root).where((builder.equal(root.get("value1"), value1)),
-                                   (builder.equal(root.get("value2"), value2)));
+                (builder.equal(root.get("value2"), value2)));
         return em.createQuery(criteria).getSingleResult();
     }
 
     public String MD5(String md5) {
         try {
-             java.security.MessageDigest md = java.security.MessageDigest.getInstance("MD5");
-             byte[] array = md.digest(md5.getBytes());
-             StringBuffer sb = new StringBuffer();
-             for (int i = 0; i < array.length; ++i) {
-               sb.append(Integer.toHexString((array[i] & 0xFF) | 0x100).substring(1,3));
+            java.security.MessageDigest md = java.security.MessageDigest.getInstance("MD5");
+            byte[] array = md.digest(md5.getBytes());
+            StringBuffer sb = new StringBuffer();
+            for (int i = 0; i < array.length; ++i) {
+                sb.append(Integer.toHexString((array[i] & 0xFF) | 0x100).substring(1, 3));
             }
-             return sb.toString();
-         } catch (java.security.NoSuchAlgorithmException e) {
-         }
-         return null;
-     }
-
-     public String generateHash() {
-        SecureRandom random = new SecureRandom();
-            byte bytes[] = new byte[6];
-            random.nextBytes(bytes);
-            Encoder encoder = Base64.getUrlEncoder().withoutPadding();
-            String hash = encoder.encodeToString(bytes);
-        return hash;
+            return sb.toString();
+        } catch (java.security.NoSuchAlgorithmException e) {
+        }
+        return null;
     }
 
-
-
-
+    public String generateHash() {
+        SecureRandom random = new SecureRandom();
+        byte bytes[] = new byte[6];
+        random.nextBytes(bytes);
+        Encoder encoder = Base64.getUrlEncoder().withoutPadding();
+        String hash = encoder.encodeToString(bytes);
+        return hash;
+    }
 
     @SuppressWarnings("unchecked")
     private Class<T> genericClass() {

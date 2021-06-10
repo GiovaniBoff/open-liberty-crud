@@ -1,4 +1,4 @@
-package com.crud.train.crud.secure;
+package com.crud.movies.crud.secure;
 
 import org.eclipse.microprofile.jwt.Claim;
 import org.eclipse.microprofile.jwt.ClaimValue;
