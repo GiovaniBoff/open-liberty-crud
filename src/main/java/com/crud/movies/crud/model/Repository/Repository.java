@@ -1,4 +1,4 @@
-package com.crud.movies.crud.Repository.DAO;
+package com.crud.movies.crud.model.Repository;
 
 /**
  * @License

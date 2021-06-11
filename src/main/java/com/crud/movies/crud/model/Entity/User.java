@@ -1,4 +1,4 @@
-package com.crud.movies.crud.Repository.Entity;
+package com.crud.movies.crud.model.Entity;
 
 import java.io.Serializable;
 import java.util.Set;

@@ -1,4 +1,4 @@
-package com.crud.movies.crud.Service;
+package com.crud.movies.crud.service;
 
 import javax.ws.rs.GET;
 import javax.ws.rs.Path;
