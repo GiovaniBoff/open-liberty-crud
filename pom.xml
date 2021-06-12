@@ -26,6 +26,13 @@
     <final.name>train-crud</final.name>
   </properties>
   <dependencies>
+  
+   <dependency>
+      <groupId>io.openliberty.features</groupId>
+      <artifactId>ejb-3.2</artifactId>
+      <type>esa</type>
+      <scope>provided</scope>
+  </dependency>
 
     <dependency>
       <groupId>org.projectlombok</groupId>
