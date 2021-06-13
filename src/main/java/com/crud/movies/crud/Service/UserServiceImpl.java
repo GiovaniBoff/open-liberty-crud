@@ -20,8 +20,7 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public List<User> searchUser() {
-        // TODO Auto-generated method stub
-        return null;
+        return userDao.read();
     }
 
 }
