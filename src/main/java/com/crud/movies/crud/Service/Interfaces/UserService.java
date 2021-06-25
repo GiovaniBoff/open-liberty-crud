@@ -3,9 +3,14 @@ package com.crud.movies.crud.service.Interfaces;
 import java.util.List;
 
 import com.crud.movies.crud.model.Entity.User;
+import com.crud.movies.crud.service.errors.ServiceRuleException;
 
 public interface UserService {
     User createUser(User user);
 
-    List<User> searchUser();
+    List<User> listUsers();
+
+    void validateEmail(String email) throws ServiceRuleException;
+
+    User searchByEmail(String email);
 }

@@ -32,9 +32,9 @@ public class User implements Serializable {
 
     @Column(name = "User_Name")
     private String nome;
-    @Column(name = "User_Email")
+    @Column(name = "User_Email", unique = true)
     private String email;
-    @Column(name = "User_pass")
+    @Column(name = "User_Pass")
     private String senha;
 
     @ManyToMany
