@@ -23,7 +23,6 @@ import com.crud.movies.crud.api.dto.UserDTO;
 import com.crud.movies.crud.api.helpers.ResponseBodyFormat;
 import com.crud.movies.crud.model.Entity.User;
 import com.crud.movies.crud.service.Interfaces.UserService;
-import com.crud.movies.crud.service.errors.ServiceRuleException;
 
 @RequestScoped
 @Path("/v1/user")
@@ -42,24 +41,28 @@ public class UserController {
   @Consumes(MediaType.APPLICATION_JSON)
   @Produces(MediaType.APPLICATION_JSON)
   @Transactional
-  public Response save(final UserDTO userDto) throws ServiceRuleException {
+  public Response save(final UserDTO userDto) {
+    try {
+      Validator validator = validatorFactory.getValidator();
+      Set<ConstraintViolation<UserDTO>> violations = validator.validate(userDto);
 
-    Validator validator = validatorFactory.getValidator();
-    Set<ConstraintViolation<UserDTO>> violations = validator.validate(userDto);
+      if (!violations.isEmpty()) {
 
-    if (!violations.isEmpty()) {
+        violations.stream().forEach((error) -> {
+          responseBodyFormat.addError(error.getMessageTemplate());
+        });
+        return Response.status(Status.BAD_REQUEST).entity(responseBodyFormat).build();
 
-      violations.stream().forEach((error) -> {
-        responseBodyFormat.addError(error.getMessageTemplate());
-      });
+      }
+
+      User user = User.builder().nome(userDto.getNome()).email(userDto.getEmail()).senha(userDto.getSenha()).build();
+      userService.createUser(user);
+      responseBodyFormat.setData(user);
+      return Response.status(Status.CREATED).entity(responseBodyFormat).build();
+    } catch (RuntimeException e) {
+      responseBodyFormat.addError(e.getMessage());
       return Response.status(Status.BAD_REQUEST).entity(responseBodyFormat).build();
-
     }
-
-    User user = User.builder().nome(userDto.getNome()).email(userDto.getEmail()).senha(userDto.getSenha()).build();
-    userService.createUser(user);
-    responseBodyFormat.setData(user);
-    return Response.status(Status.OK).entity(responseBodyFormat).build();
 
   }
 
