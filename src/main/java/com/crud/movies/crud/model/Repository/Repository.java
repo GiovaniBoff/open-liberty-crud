@@ -20,10 +20,12 @@ package com.crud.movies.crud.model.Repository;
 import java.lang.reflect.ParameterizedType;
 import java.security.SecureRandom;
 import java.util.Base64;
-import java.util.List;
 import java.util.Base64.Encoder;
+import java.util.List;
+import java.util.Optional;
 
 import javax.persistence.EntityManager;
+import javax.persistence.NoResultException;
 import javax.persistence.PersistenceContext;
 import javax.persistence.criteria.CriteriaBuilder;
 import javax.persistence.criteria.CriteriaQuery;
@@ -72,12 +74,17 @@ public abstract class Repository<T> {
         return em.createQuery(criteria).getSingleResult();
     }
 
-    public T find(String column, String value) {
-        final CriteriaBuilder builder = em.getCriteriaBuilder();
-        final CriteriaQuery<T> criteria = builder.createQuery(this.genericClass());
-        Root<T> root = criteria.from(this.genericClass());
-        criteria.select(root).where(builder.equal(root.get(column), value));
-        return em.createQuery(criteria).getSingleResult();
+    public Optional<T> find(String column, String value) {
+        try {
+            final CriteriaBuilder builder = em.getCriteriaBuilder();
+            final CriteriaQuery<T> criteria = builder.createQuery(this.genericClass());
+            Root<T> root = criteria.from(this.genericClass());
+            criteria.select(root).where(builder.equal(root.get(column), value));
+            return Optional.of(em.createQuery(criteria).getSingleResult());
+        } catch (NoResultException e) {
+            return Optional.empty();
+        }
+
     }
 
     public T find(String column1, String value1, String column2, String value2) {

@@ -5,7 +5,6 @@ import java.util.Set;
 
 import javax.enterprise.context.RequestScoped;
 import javax.inject.Inject;
-import javax.transaction.Transactional;
 import javax.validation.ConstraintViolation;
 
 import javax.validation.Validator;
@@ -40,7 +39,6 @@ public class UserController {
   @POST
   @Consumes(MediaType.APPLICATION_JSON)
   @Produces(MediaType.APPLICATION_JSON)
-  @Transactional
   public Response save(final UserDTO userDto) {
     try {
       Validator validator = validatorFactory.getValidator();
@@ -68,7 +66,6 @@ public class UserController {
 
   @GET
   @Produces(MediaType.APPLICATION_JSON)
-  @Transactional
   public Response index() {
     List<User> users = userService.listUsers();
     return Response.ok(users).build();
