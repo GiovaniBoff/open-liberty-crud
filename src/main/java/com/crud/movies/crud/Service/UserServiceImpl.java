@@ -4,6 +4,7 @@ import java.util.List;
 
 import javax.ejb.Stateless;
 import javax.inject.Inject;
+import javax.persistence.NoResultException;
 
 import com.crud.movies.crud.model.Entity.User;
 import com.crud.movies.crud.model.Repository.DAO.UserDAO;
@@ -29,16 +30,19 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public void validateEmail(String email) throws ServiceRuleException {
-        User user = searchByEmail(email);
-        if (user != null) {
+        if (searchByEmail(email)) {
             throw new ServiceRuleException("There is already a registered user with this email!");
         }
     }
 
     @Override
-    public User searchByEmail(String email) {
-        User user = userDao.find("email", email);
-        return user;
+    public Boolean searchByEmail(String email) {
+        try {
+            return userDao.find("email", email) != null;
+        } catch (NoResultException e) {
+            return false;
+        }
+
     }
 
 }

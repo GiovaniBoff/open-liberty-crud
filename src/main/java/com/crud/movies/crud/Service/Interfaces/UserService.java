@@ -12,5 +12,5 @@ public interface UserService {
 
     void validateEmail(String email) throws ServiceRuleException;
 
-    User searchByEmail(String email);
+    Boolean searchByEmail(String email);
 }
