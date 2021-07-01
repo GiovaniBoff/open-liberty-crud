@@ -24,7 +24,7 @@ import com.crud.movies.crud.model.Entity.User;
 import com.crud.movies.crud.service.Interfaces.UserService;
 
 @RequestScoped
-@Path("/v1/user")
+@Path("/user")
 public class UserController {
 
   @Inject
